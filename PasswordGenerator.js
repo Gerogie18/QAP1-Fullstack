@@ -3,6 +3,10 @@
 //Description: CLI app that uses flags to generate a random password
 
 
+const CHAR_LOWER = 0
+const CHAR_UPPER = 1
+const CHAR_NUMBER = 2
+const CHAR_SPECIAL = 3
 
 //defaults
 let length = 8;
@@ -12,17 +16,16 @@ let specialCharactersBool = true;
 
 
 function generateCharacterArray (upperCaseBool, numberBool, specialCharactersBool) {
-    // 0 = lowercase character // 1 = uppercase character // 2 = number // 3 = special character
-    let characterArray = [0];
+    let characterArray = [CHAR_LOWER];
 
     if (upperCaseBool) {
-        characterArray.push(1);
+        characterArray.push(CHAR_UPPER);
     }
     if (numberBool) {
-        characterArray.push(2);
+        characterArray.push(CHAR_NUMBER);
     }
     if (specialCharactersBool) {
-        characterArray.push(3);
+        characterArray.push(CHAR_SPECIAL);
     }
     return characterArray;
 }
@@ -38,26 +41,26 @@ function generatePassword (passwordFormat) {
     let password = ""
     let alphabet = "abcdefghijklmnopqrstuvwxyz";
     let specialCharacters = "!@#$%^&*()_+";
-    for (let i = 0; i < passwordFormat.length; i++) {
-        switch (passwordFormat[i]) {
-            case 0:
+
+    for (characterType in passwordFormat) {
+        switch (CharacterType) {
+            case CHAR_LOWER:
                 password += alphabet[Math.floor(Math.random() * alphabet.length)];
                 break;
 
-            case 1:
+            case CHAR_UPPER:
                 password += alphabet.toUpperCase()[Math.floor(Math.random() * alphabet.length)];
                 break;
 
-            case 2:
+            case CHAR_NUMBER:
                 password += Math.floor(Math.random() * 10);
                 break;
             
-            case 3:
+            case CHAR_SPECIAL:
                 password += specialCharacters[Math.floor(Math.random() * specialCharacters.length)];
                 break;
             default:
-                print("Error: Unknown password format: " + passwordFormat[i]);
-                break;
+                throw new Error(`Invalid character type: ${characterType}`);
         }
     }
 }
