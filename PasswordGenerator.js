@@ -45,25 +45,30 @@ function generatePassword (passwordFormat) {
     for (characterType in passwordFormat) {
         switch (CharacterType) {
             case CHAR_LOWER:
-                password += alphabet[Math.floor(Math.random() * alphabet.length)];
+                password += alphabet[getRandom(alphabet.length)];
                 break;
 
             case CHAR_UPPER:
-                password += alphabet.toUpperCase()[Math.floor(Math.random() * alphabet.length)];
+                password += alphabet.toUpperCase()[getRandom(alphabet.length)];
                 break;
 
             case CHAR_NUMBER:
-                password += Math.floor(Math.random() * 10);
+                password += Math.floor(getRandom(10));
                 break;
             
             case CHAR_SPECIAL:
-                password += specialCharacters[Math.floor(Math.random() * specialCharacters.length)];
+                password += specialCharacters[Math.floor(getRandom(specialCharacters.length))];
                 break;
             default:
                 throw new Error(`Invalid character type: ${characterType}`);
         }
     }
 }
+
+function getRandom (length) {
+    return Math.floor(Math.random() * length);
+}
+
 
 
 // parse command line arguments
