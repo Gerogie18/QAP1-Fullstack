@@ -33,7 +33,7 @@ function generateCharacterArray (upperCaseBool, numberBool, specialCharactersBoo
 function generatePasswordFormat (characterArray, length) {
     let passwordFormat = characterArray;
     for (let i = passwordFormat.length - 1; i < length; i++) {
-        passwordFormat.push(characterArray[Math.floor(Math.random() * characterArray.length)]);
+        passwordFormat.push(characterArray[getRandom(passwordFormat.length)]);
     }
 }
 
