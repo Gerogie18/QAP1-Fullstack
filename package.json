@@ -1,0 +1,22 @@
+{
+  "name": "pass-gen",
+  "version": "1.0.0",
+  "description": "A CLI app password generator that generates a password for the user.",
+  "main": "PasswordGenerator.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gerogie18/QAP1-Fullstack.git"
+  },
+  "keywords": [
+    "password"
+  ],
+  "author": "Jennifer Lyver",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Gerogie18/QAP1-Fullstack/issues"
+  },
+  "homepage": "https://github.com/Gerogie18/QAP1-Fullstack#readme"
+}
