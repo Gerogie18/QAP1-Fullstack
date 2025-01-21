@@ -2,6 +2,8 @@
 // 01/21/2024
 //Description: CLI app that uses flags to generate a random password
 
+const process = require('node:process');
+const argv = process.argv.slice(2);
 
 const CHAR_LOWER = 0
 const CHAR_UPPER = 1
