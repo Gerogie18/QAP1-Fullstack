@@ -4,10 +4,7 @@
 // 01/21/2024 - 01/23/2024
 //Description: CLI app that uses flags to generate a random password
 
-const readline = require('node:readline');
-const util = require('node:util');
-const process = require('node:process');
-const { error } = require('node:console');
+const process = require('node:process'); 
 const argv = process.argv.slice(2); //removes the first two arguments from the array.
 
 // Constants for character encoding.  
@@ -26,8 +23,8 @@ let defaultFlags = true;
 
 main(argv);
 
-async function main(args) {
-    await parseArguments(args);
+function main(args) {
+    parseArguments(args);
     let characterArray = generateCharacterArray(upperCaseBool, numberBool, specialCharactersBool);
     let passwordFormat = generatePasswordFormat(characterArray, length);
     let password = generatePassword(passwordFormat);
@@ -86,6 +83,7 @@ function generatePassword(passwordFormat) {
                 password += specialCharacters[Math.floor(getRandom(specialCharacters.length))];
                 break;
             default:
+                help();
                 throw new Error (`\nInvalid character type: ${characterType}`);
         }
     }
@@ -96,7 +94,7 @@ function getRandom (length) {
     return Math.floor(Math.random() * length);
 }
 
-async function help () {
+function help () {
     console.log(`
     Password Generator
     Flags:
@@ -109,19 +107,7 @@ async function help () {
           if one character flag is specified, the others will default to false.
           if a number less than 4 is provided no password will be generated.
     `);
-
-    // Prompt user for flags
-    //starts the user prompt
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
-
-    //must be async to wait for the prompt to finish
-    const questionAsync = util.promisify(rl.question).bind(rl);
-    const answer = await questionAsync('Specify flags - leave blank for default: ');
-    parseArguments(answer.split(' '));
-    rl.close();
+    return;
 }
 
 function resetDefaultFlags(bool) {
@@ -137,28 +123,30 @@ function resetDefaultFlags(bool) {
     }
 }
 
-async function parseArguments(args) {
-    if (arguments.length === 0 | args[0] === '') {
+function parseArguments(args) {
+    if (arguments.length === 0) {
         return;
-    }
-    if (args[0] === '-h' || args[0] === '--help') {
-        await help();
-    }
+    };
     for (let i = 0; i < args.length; i++) {
         let arg = args[i].split('='); 
         switch (arg[0]) { 
+            case '-h':
+            case '--help':
+                help();
+                process.exit(0);
             case '-l':
             case '--length':
                 if (arg.length === 2) {
                     length = parseInt(arg[1]);
                     if (isNaN(length) || length < 4) {
-                        console.log(`\nInvalid length: ${arg[1]} - must be a positive integer greater than or equal to 4`);
                         help();
+                        throw new Error (`\nInvalid length: ${arg[1]} - must be a positive integer greater than or equal to 4`);
+                        
                     }
                     break; 
                 } else { 
-                    console.log(`\nInvalid length: ${args[i]} - use -h or --help for more information`); 
-                    await help();
+                    help();
+                    throw new Error(`\nInvalid length: ${args[i]} - use -h or --help for more information`); 
                 }
             case '-u':
             case '--upper':
@@ -178,8 +166,8 @@ async function parseArguments(args) {
                 specialCharactersBool = true;
                 break;
             default:
-                console.log(`\nInvalid flag: ${args[i]} - use -h or --help for more information`);
-                await help();
+                help();
+                throw new Error (`\nInvalid flag: ${args[i]} - use -h or --help for more information`);
         }
     }
 }
