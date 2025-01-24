@@ -84,7 +84,7 @@ function generatePassword(passwordFormat) {
                 break;
             default:
                 help();
-                throw new Error (`\nInvalid character type: ${characterType}`);
+                throw new Error (`\nInvalid character type: "${characterType}"`);
         }
     }
     return password; 
@@ -140,13 +140,13 @@ function parseArguments(args) {
                     length = parseInt(arg[1]);
                     if (isNaN(length) || length < 4) {
                         help();
-                        throw new Error (`\nInvalid length: ${arg[1]} - must be a positive integer greater than or equal to 4`);
+                        throw new Error (`\nInvalid length: "${arg[1]}": must be a positive integer greater than or equal to 4`);
                         
                     }
                     break; 
                 } else { 
                     help();
-                    throw new Error(`\nInvalid length: ${args[i]} - use -h or --help for more information`); 
+                    throw new Error(`\nInvalid length: "${args[i]}": use -h or --help for more information`); 
                 }
             case '-u':
             case '--upper':
@@ -167,7 +167,7 @@ function parseArguments(args) {
                 break;
             default:
                 help();
-                throw new Error (`\nInvalid flag: ${args[i]} - use -h or --help for more information`);
+                throw new Error (`\nInvalid flag: "${args[i]}":use -h or --help for more information`);
         }
     }
 }
