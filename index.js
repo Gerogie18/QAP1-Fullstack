@@ -103,7 +103,7 @@ function help () {
     -s, --special         : Include special characters     :  Default: true
     -l, --length=<length> : Set the length of the password :  Default: 8 | Min: 4
 
-    Note: Character flags all default to true if no charcter flags are provided,
+    Note: Character flags all default to true if no character flags are provided,
           if one character flag is specified, the others will default to false.
           if a number less than 4 is provided no password will be generated.
     `);
