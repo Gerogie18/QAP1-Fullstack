@@ -5,7 +5,7 @@
 
 ---
 
-    A simple password generator.  For ease of use defaults to all character variations and a length of 8.  Due to how it is written there is preditability in the first 4 characters.
+    A simple command line password generator.  For ease of use defaults to all character variations and a length of 8.  Due to how it is written there is preditability in the first 4 characters.
 
 Note:
 
